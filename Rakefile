@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "sweetload"
   gem.homepage = "http://github.com/kristianmandrup/sweetload"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{sweet autoloading using conventions on file structure}
+  gem.description = %Q{sweet autoloading using conventions on file structure while allowing configuration overrides for special cases}
   gem.email = "kmandrup@gmail.com"
   gem.authors = ["Kristian Mandrup"]
   # dependencies defined in Gemfile

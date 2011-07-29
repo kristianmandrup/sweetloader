@@ -1,0 +1,59 @@
+h1. sweetload
+
+A Sweet autoloader that can autoload your modules and classes more easily, by taking advantage of a standard directory structure approach for the placement of your classes and modules.
+
+h2. Install
+
+In your Gemfile:
+
+<pre>
+gem 'sweetload'
+</pre>
+
+Run bundler to install
+
+$bundle$
+
+h2. Usage
+
+Simply use the autoload_modules macro in your Module and Class definitions.
+
+<pre>
+CanTango
+  autoload_module :Configuration, :Factory, :Permit
+end
+</pre>
+
+Each of these modules are then expected to be in @catango/configuration.rb@ and similar relative to a load path.
+
+h3. Configuration
+
+The following global config vars are available in AutoLoader:
+* root
+* namespaces
+
+Set a specific root which the dir will be calculated relative to, using root.
+Override namespace to directory auto-mapping using the namespaces hash.
+
+<pre>
+AutoLoader.root = ''
+AutoLoader.namespaces= {:CanTango => 'cantango', :Permithelper => 'permit_helper'}
+</pre>
+
+Normally the namespace/constant CanTango will be translated to the dir 'can_tango', here we override this so it will instead be translated to 'cantango'.
+
+h2. Contributing to sweetload
+ 
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+h2. Copyright
+
+Copyright (c) 2011 Kristian Mandrup. See LICENSE.txt for
+further details.
+
