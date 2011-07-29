@@ -47,7 +47,7 @@ describe Module do
 
 
     it "should not include class methods indirectly" do
-      Third.should_not respond_to(:class_method)
+      Third.should respond_to(:class_method)
     end
 
     it "should include class methods" do
