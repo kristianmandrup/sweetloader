@@ -14,11 +14,11 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "sweetload"
-  gem.homepage = "http://github.com/kristianmandrup/sweetload"
+  gem.name = "sweetloader"
+  gem.homepage = "http://github.com/kristianmandrup/sweetloader"
   gem.license = "MIT"
-  gem.summary = %Q{sweet autoloading using conventions on file structure}
-  gem.description = %Q{sweet autoloading using conventions on file structure while allowing configuration overrides for special cases}
+  gem.summary = %Q{sweetens up autoloading using file structure conventions}
+  gem.description = %Q{sweet autoloading using file structure conventions while allowing configuration overrides for special cases}
   gem.email = "kmandrup@gmail.com"
   gem.authors = ["Kristian Mandrup"]
   # dependencies defined in Gemfile

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'sweetload'
 
 class Trial
   include ClassExt

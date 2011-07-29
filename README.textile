@@ -1,4 +1,4 @@
-h1. sweetload
+h1. sweetloader
 
 A Sweet autoloader that can autoload your modules and classes more easily, by taking advantage of a standard directory structure approach for the placement of your classes and modules.
 

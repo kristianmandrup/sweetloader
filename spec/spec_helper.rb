@@ -1,5 +1,5 @@
 require 'rspec'
-require 'sweetload'
+require 'sweetloader'
 
 RSpec.configure do |config|
 
