@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sweetloader}
-  s.version = ""
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Kristian Mandrup"]
-  s.date = %q{2011-07-29}
+  s.authors = [%q{Kristian Mandrup}]
+  s.date = %q{2011-08-21}
   s.description = %q{sweet autoloading using file structure conventions while allowing configuration overrides for special cases}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -20,10 +20,10 @@ Gem::Specification.new do |s|
     ".document",
     ".rspec",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.textile",
     "Rakefile",
+    "VERSION",
     "lib/sweetloader.rb",
     "spec/auto_load_blank_root.rb",
     "spec/autoload_blank_root.rb",
@@ -43,32 +43,36 @@ Gem::Specification.new do |s|
     "spec/fixtures/autoload_modulez/second.rb",
     "spec/fixtures/autoload_modulez/third_one_here.rb",
     "spec/spec_helper.rb",
-    "spec/sweetloader/sweetloader_spec.rb"
+    "spec/sweetloader/sweetloader_spec.rb",
+    "sweetloader.gemspec"
   ]
   s.homepage = %q{http://github.com/kristianmandrup/sweetloader}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.8}
   s.summary = %q{sweetens up autoloading using file structure conventions}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<sugar-high>, ["~> 0.5.0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 3.0.1"])
+      s.add_runtime_dependency(%q<i18n>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 2.5.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.10"])
       s.add_development_dependency(%q<jeweler>, [">= 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
-      s.add_dependency(%q<sugar-high>, ["~> 0.5.0"])
+      s.add_dependency(%q<activesupport>, [">= 3.0.1"])
+      s.add_dependency(%q<i18n>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 2.5.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.10"])
       s.add_dependency(%q<jeweler>, [">= 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
     end
   else
-    s.add_dependency(%q<sugar-high>, ["~> 0.5.0"])
+    s.add_dependency(%q<activesupport>, [">= 3.0.1"])
+    s.add_dependency(%q<i18n>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 2.5.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.10"])
     s.add_dependency(%q<jeweler>, [">= 1.6.4"])
