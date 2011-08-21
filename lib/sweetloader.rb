@@ -1,5 +1,4 @@
-require 'sugar-high/kind_of'
-require 'sugar-high/array'
+require 'active_support/core_ext/string/inflections'
 
 class Module
   def include_and_extend(the_module, options={})
@@ -89,7 +88,7 @@ module ClassExt
 
   def try_class name
     return name if name.kind_of?(Class)
-    found = get_module(name) if name.kind_of_label?
+    found = get_module(name) if name.is_a?(String) || name.is_a?(Symbol)
     return found if found.is_a?(Class)
   rescue
     false
@@ -97,7 +96,7 @@ module ClassExt
 
   def try_module name
     return name if name.kind_of?(Module)
-    found = get_module(name) if name.kind_of_label?
+    found = get_module(name.to_s) if name.is_a?(String) || name.is_a?(Symbol)
     return found if found.is_a?(Module)
   rescue
     false
@@ -105,7 +104,7 @@ module ClassExt
 
   def try_module_only name
     return name if is_module?(name)
-    found = get_module(name) if name.kind_of_label?
+    found = get_module(name) if name.is_a?(String) || name.is_a?(Symbol)
     return found if is_module?(found)
   rescue
     false
