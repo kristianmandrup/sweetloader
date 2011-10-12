@@ -59,6 +59,9 @@ module AutoLoader
 end
 
 module ClassExt
+  class ModuleNotFoundError < StandardError; end
+  class ClassNotFoundError < StandardError; end
+
   def get_module name
     # Module.const_get(name)
     name.to_s.camelize.constantize
@@ -117,7 +120,7 @@ module ClassExt
       res << found_class if found_class
       res
     end
-    raise "Not one Class for any of: #{names} is currently loaded" if classes.empty?
+    raise ClassNotFoundError, "Not one Class for any of: #{names} is currently loaded" if classes.empty?
     classes.first
   end
 
@@ -127,7 +130,7 @@ module ClassExt
       res << found_class if found_class
       res
     end
-    raise "Not one Module for any of: #{names} is currently loaded" if modules.empty?
+    raise ModuleNotFoundError, "Not one Module for any of: #{names} is currently loaded" if modules.empty?
     modules.first
   end
 end

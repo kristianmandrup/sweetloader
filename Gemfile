@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source :rubygems
 
 gem "activesupport", ">= 3.0.1"
 gem "i18n"
