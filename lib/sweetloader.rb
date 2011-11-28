@@ -1,6 +1,7 @@
 require 'active_support/core_ext/string/inflections'
 
-class Module
+
+module SweetLoader
   def include_and_extend(the_module, options={})
     options[:instance_methods] ||= :InstanceMethods
     options[:class_methods] ||= :ClassMethods
@@ -12,21 +13,54 @@ class Module
   end
 
   def autoload_modules *args
+    alm_options = args.extract_options!
+    alm_options.merge!(autoload_options) if respond_to? :autoload_options
 
-    options = args.extract_options!
-    root = options[:root] || AutoLoader.root || ''
+    root = alm_options[:root] || AutoLoader.root || ''
     path = root.strip.empty? ? self.name.to_s.underscore : [root, self.name.to_s.underscore].join('/')
-    from = options[:from] || path
-
+    from = alm_options[:from] || path
+    proc = alm_options[:mutate_path]
+    from = proc.call(from) if proc
+        
+    the_module = send(:the_module) if respond_to? :the_module
+    the_module ||= self
+    
     # Here also could be adding of the file in top of load_paths like: $:.unshift File.dirname(__FILE__)
     # It is very useful for situations of having not load_paths built Rails or Gems way.
     args.each do |req_name|
       ruby_file = req_name.to_s.underscore
-
-      send :autoload, req_name, AutoLoader.translate("#{from}/#{ruby_file}")
+      require_file = AutoLoader.translate("#{from}/#{ruby_file}", alm_options)
+      the_module.send :autoload, req_name, require_file
     end
   end
+  alias_method :autoload_module, :autoload_modules
+  
+  def autoload_scope options = {}, &block
+    if block_given?
+      block.arity == 1 ? yield(self) : SweetLoader::Scope.new(self, options).instance_eval(&block)
+    end    
+  end  
+end  
+  
+module SweetLoader
+  class Scope
+    include SweetLoader
 
+    attr_reader :autoload_options, :the_module
+  
+    def initialize the_module, options = {}
+      @the_module = the_module
+      @autoload_options = options
+    end
+    
+    def name
+      the_module.name
+    end
+  end
+end
+
+class Module
+  include SweetLoader
 end
 
 module AutoLoader
@@ -49,11 +83,13 @@ module AutoLoader
     @@namespaces = namespaces
   end
 
-  def self.translate name
+  def self.translate name, options = {}    
     names = name.split('/')
+    ns = namespaces.merge(options[:namespaces] || options[:ns] || {})
     names.map do |name|
       clazz_name = name.to_s.camelize
-      namespaces[clazz_name.to_sym] ? namespaces[clazz_name.to_sym] : name
+      folder = ns[clazz_name.to_sym] ? ns[clazz_name.to_sym] : name
+      folder.sub /\/$/, ''
     end.join('/')
   end
 end

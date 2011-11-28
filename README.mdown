@@ -1,32 +1,32 @@
-h1. sweetloader
+# Sweetloader
 
-A Sweet autoloader that can autoload your modules and classes more easily, by taking advantage of a standard directory structure approach for the placement of your classes and modules.
+A 'sweet' autoloader that can autoload your modules and classes more easily, by taking advantage of a standard directory structure approach for the placement of your classes and modules. You can also configure Sweetloader to override the defaults in various ways... 
 
-h2. Install
+## Install
 
-In your Gemfile:
+Insert in your Gemfile:
 
-<pre>
-gem 'sweetload'
-</pre>
+```ruby
+gem 'sweetloader'
+```
 
 Run bundler to install
 
 $bundle$
 
-h2. Usage
+## Usage
 
 Simply use the autoload_modules macro in your Module and Class definitions.
 
-<pre>
+```ruby
 CanTango
   autoload_module :Configuration, :Factory, :Permit
 end
-</pre>
+```
 
 Each of these modules are then expected to be in @catango/configuration.rb@ and similar relative to a load path.
 
-h3. Configuration
+## Configuration
 
 The following global config vars are available in AutoLoader:
 * root
@@ -35,14 +35,46 @@ The following global config vars are available in AutoLoader:
 Set a specific root which the dir will be calculated relative to, using root.
 Override namespace to directory auto-mapping using the namespaces hash.
 
-<pre>
+```ruby
 AutoLoader.root = ''
 AutoLoader.namespaces= {:CanTango => 'cantango', :Permithelper => 'permit_helper'}
-</pre>
+```
 
 Normally the namespace/constant CanTango will be translated to the dir 'can_tango', here we override this so it will instead be translated to 'cantango'.
 
-h2. Contributing to sweetload
+You can also specify these options directly as an option hash on the `#autoload_modules` call 
+
+```ruby
+  autoload_modules :Configuration, :Factory, :Permit, :root => 'helpers'
+  autoload_modules :Configuration, :Factory, :Permit, :ns => {:CanTango => 'cantango'}
+```
+
+## Mutate path option
+
+Can be used to execute more general substitution logic on the generated file path
+
+```ruby
+  autoload_modules :Configuration, :Factory, :Permit, :mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') }
+```
+
+## Scopes
+
+```ruby
+module AutoloadModules
+  module Configuration
+	# the scope options only have effect for autoload_modules statements within it!
+    autoload_scope 
+        :ns => { :AutoloadModules => 'fixtures/autoload_modulez'},
+		:mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') } do
+      autoload_modules :Admin
+    end
+    
+    autoload_modules :Editor
+  end
+end
+```
+
+## Contributing to sweetloader
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
@@ -52,7 +84,7 @@ h2. Contributing to sweetload
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-h2. Copyright
+## Copyright
 
 Copyright (c) 2011 Kristian Mandrup. See LICENSE.txt for
 further details.
