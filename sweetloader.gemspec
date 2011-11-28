@@ -4,24 +4,24 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "sweetloader"
-  s.version = "0.1.1"
+  s.name = %q{sweetloader}
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Kristian Mandrup"]
-  s.date = "2011-10-12"
-  s.description = "sweet autoloading using file structure conventions while allowing configuration overrides for special cases"
-  s.email = "kmandrup@gmail.com"
+  s.authors = [%q{Kristian Mandrup}]
+  s.date = %q{2011-11-28}
+  s.description = %q{sweet autoloading using file structure conventions while allowing configuration overrides for special cases}
+  s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.textile"
+    "README.mdown"
   ]
   s.files = [
     ".document",
     ".rspec",
     "Gemfile",
     "LICENSE.txt",
-    "README.textile",
+    "README.mdown",
     "Rakefile",
     "VERSION",
     "lib/sweetloader.rb",
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "spec/autoload_blank_root.rb",
     "spec/autoload_blank_root/hello.rb",
     "spec/autoload_blank_root/sailor.rb",
+    "spec/autoload_modules/configuration/editor.rb",
     "spec/class_ext_spec.rb",
     "spec/fixtures/autoload_modules.rb",
     "spec/fixtures/autoload_modules/subdir/first.rb",
@@ -39,18 +40,24 @@ Gem::Specification.new do |s|
     "spec/fixtures/autoload_modules_root/second.rb",
     "spec/fixtures/autoload_modules_root/third.rb",
     "spec/fixtures/autoload_modulez.rb",
+    "spec/fixtures/autoload_modulez/abc.rb",
     "spec/fixtures/autoload_modulez/first.rb",
+    "spec/fixtures/autoload_modulez/roles/config/admin.rb",
     "spec/fixtures/autoload_modulez/second.rb",
     "spec/fixtures/autoload_modulez/third_one_here.rb",
+    "spec/fixtures/autoload_modulez/xyz.rb",
+    "spec/fixtures/autoload_mutate_path.rb",
+    "spec/fixtures/models.rb",
     "spec/spec_helper.rb",
+    "spec/sweetloader/sweetloader_options_spec.rb",
     "spec/sweetloader/sweetloader_spec.rb",
     "sweetloader.gemspec"
   ]
-  s.homepage = "http://github.com/kristianmandrup/sweetloader"
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
-  s.summary = "sweetens up autoloading using file structure conventions"
+  s.homepage = %q{http://github.com/kristianmandrup/sweetloader}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.6}
+  s.summary = %q{sweetens up autoloading using file structure conventions}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -59,14 +66,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activesupport>, [">= 3.0.1"])
       s.add_runtime_dependency(%q<i18n>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 2.5.0"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.10"])
+      s.add_development_dependency(%q<bundler>, [">= 1.1.rc"])
       s.add_development_dependency(%q<jeweler>, [">= 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<activesupport>, [">= 3.0.1"])
       s.add_dependency(%q<i18n>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 2.5.0"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.10"])
+      s.add_dependency(%q<bundler>, [">= 1.1.rc"])
       s.add_dependency(%q<jeweler>, [">= 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
     end
@@ -74,7 +81,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<activesupport>, [">= 3.0.1"])
     s.add_dependency(%q<i18n>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 2.5.0"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.10"])
+    s.add_dependency(%q<bundler>, [">= 1.1.rc"])
     s.add_dependency(%q<jeweler>, [">= 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
   end
