@@ -64,7 +64,8 @@ However autoloading does perform lazy loading and can be advantageous when you w
 You can also specify the AutoLoader options directly as an option hash on the `#autoload_modules` call:
 
 ```ruby
-  autoload_modules :Configuration, :Factory, :Permit, :root => 'helpers'
+  autoload_modules :Configuration, :mode => :require
+  autoload_modules :Configuration, :Factory, :root => 'helpers'
   autoload_modules :Configuration, :Factory, :Permit, :ns => {:CanTango => 'cantango'} # or use :namespaces
 ```
 
