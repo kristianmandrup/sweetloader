@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "sweetloader"
-  s.version = "0.1.4"
+  s.name = %q{sweetloader}
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Kristian Mandrup"]
-  s.date = "2011-11-29"
-  s.description = "sweet autoloading using file structure conventions while allowing configuration overrides for special cases"
-  s.email = "kmandrup@gmail.com"
+  s.authors = [%q{Kristian Mandrup}]
+  s.date = %q{2011-11-29}
+  s.description = %q{sweet autoloading using file structure conventions while allowing configuration overrides for special cases}
+  s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.mdown"
@@ -25,8 +25,8 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/sweetloader.rb",
-    "lib/sweetloader/auto_loader.rb",
     "lib/sweetloader/class_ext.rb",
+    "lib/sweetloader/class_methods.rb",
     "lib/sweetloader/scope.rb",
     "spec/auto_load_blank_root.rb",
     "spec/autoload_blank_root.rb",
@@ -57,11 +57,11 @@ Gem::Specification.new do |s|
     "spec/sweetloader/sweetloader_spec.rb",
     "sweetloader.gemspec"
   ]
-  s.homepage = "http://github.com/kristianmandrup/sweetloader"
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
-  s.summary = "sweetens up autoloading using file structure conventions"
+  s.homepage = %q{http://github.com/kristianmandrup/sweetloader}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.6}
+  s.summary = %q{sweetens up autoloading using file structure conventions}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
