@@ -16,7 +16,7 @@ module AutoLoader
     end
 
     def namespaces= namespaces
-      raise ArgumentError, "Must be a Hash, was: #{namespaces}" if !root.kind_of?(Hash)
+      raise ArgumentError, "Must be a Hash, was: #{namespaces}" if !namespaces.kind_of?(Hash)
       @namespaces = namespaces
     end
 
@@ -25,7 +25,11 @@ module AutoLoader
     end
 
     def mode= mode 
-      @mode = mode if valid_modes.include? mode
+      @mode = mode if valid_mode? mode
+    end
+
+    def valid_mode? mode
+      valid_modes.include? mode
     end
 
     def valid_modes

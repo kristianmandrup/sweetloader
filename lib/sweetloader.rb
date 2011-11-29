@@ -27,8 +27,11 @@ module SweetLoader
     the_module = send(:the_module) if respond_to? :the_module
     the_module ||= self
     
+    mode = alm_options[:mode] if AutoLoader.valid_mode? alm_options[:mode]
+    mode ||= AutoLoader.mode
+    
     logic = alm_options[:proc] if alm_options[:proc].respond_to? :call
-    logic ||= mode_logic
+    logic ||= mode_logic mode
     
     # Here also could be adding of the file in top of load_paths like: $:.unshift File.dirname(__FILE__)
     # It is very useful for situations of having not load_paths built Rails or Gems way.
@@ -41,8 +44,8 @@ module SweetLoader
   end
   alias_method :autoload_module, :autoload_modules
 
-  def mode_logic
-    case AutoLoader.mode
+  def mode_logic mode
+    case mode
     when :autoload
       Proc.new { |the_module, module_name, require_file| the_module.send :autoload, module_name, require_file }
     when :require
