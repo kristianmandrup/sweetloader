@@ -1,6 +1,16 @@
-module AutoLoader
+module SweetLoader
   module ClassMethods
     attr_writer :default_mode
+
+    def translate name, options = {}    
+      names = name.split('/')
+      ns = namespaces.merge(options[:namespaces] || options[:ns] || {})
+      names.map do |name|
+        clazz_name = name.to_s.camelize
+        folder = ns[clazz_name.to_sym] ? ns[clazz_name.to_sym] : name
+        folder.sub /\/$/, ''
+      end.join('/')
+    end
 
     def root
       @root ||= ''
@@ -35,20 +45,10 @@ module AutoLoader
     def valid_modes
       [:autoload, :require]
     end
-    
+  
     def default_mode
       valid_modes.first
     end
   end
   extend ClassMethods
-  
-  def self.translate name, options = {}    
-    names = name.split('/')
-    ns = namespaces.merge(options[:namespaces] || options[:ns] || {})
-    names.map do |name|
-      clazz_name = name.to_s.camelize
-      folder = ns[clazz_name.to_sym] ? ns[clazz_name.to_sym] : name
-      folder.sub /\/$/, ''
-    end.join('/')
-  end
 end

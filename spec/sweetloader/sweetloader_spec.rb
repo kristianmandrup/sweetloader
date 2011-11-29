@@ -30,13 +30,13 @@ describe Module do
 
     context 'using AutoLoader.root' do
       it 'empty root' do
-        AutoLoader.root = ''
+        SweetLoader.root = ''
         require 'autoload_blank_root'
         AutoloadBlankRoot::Hello.should respond_to(:test)
       end
 
       it 'should autoload modules using ClassExt#autoload_root' do
-        AutoLoader.root = 'fixtures'
+        SweetLoader.root = 'fixtures'
         require 'fixtures/autoload_modules_root'
         AutoloadModulesRoot::Third.should respond_to(:test)
       end
@@ -44,8 +44,8 @@ describe Module do
 
     context 'using AutoLoader.namespaces' do
       it 'empty root' do
-        AutoLoader.root = ''
-        AutoLoader.namespaces= {:AutoLoadBlankRoot => 'autoload_blank_root', :HelloSailor => 'sailor'}
+        SweetLoader.root = ''
+        SweetLoader.namespaces= {:AutoLoadBlankRoot => 'autoload_blank_root', :HelloSailor => 'sailor'}
         require 'auto_load_blank_root'
         AutoLoadBlankRoot::HelloSailor.should respond_to(:test)
       end

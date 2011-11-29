@@ -1,8 +1,11 @@
 require 'active_support/core_ext/string/inflections'
 
+require 'sweetloader/class_methods'
 
 module SweetLoader
   class InvalidAutoloadMode < StandardError; end
+
+  extend ClassMethods
   
   def include_and_extend(the_module, options={})
     options[:instance_methods] ||= :InstanceMethods
@@ -38,7 +41,7 @@ module SweetLoader
     args.each do |module_name|
       ruby_file = module_name.to_s.underscore
       module_name = module_name.to_s.camelize.to_sym
-      require_file = AutoLoader.translate("#{from}/#{ruby_file}", alm_options)
+      require_file = SweetLoader.translate("#{from}/#{ruby_file}", alm_options)
       logic.call(the_module, module_name, require_file)
     end
   end
@@ -66,7 +69,8 @@ class Module
   include SweetLoader
 end
 
-require 'sweetloader/scope'
-require 'sweetloader/auto_loader'
-require 'sweetloader/class_ext'
+# backwards (deprecated) alias
+AutoLoader = SweetLoader
 
+require 'sweetloader/scope'
+require 'sweetloader/class_ext'

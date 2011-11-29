@@ -26,19 +26,21 @@ end
 
 Each of these modules are then expected to be in @catango/configuration.rb@ and similar relative to a load path.
 
-## AutoLoader Configuration
+## SweetLoader Configuration
 
-The following global config vars are available in AutoLoader:
+The following global config vars are available in SweetLoader:
 * root
 * namespaces
 * mode
+
+Note: AutoLoader is available as a deprecated alias for SweetLoader (versions < 1.5)
 
 ### Root
 
 Set a specific root which the dir will be calculated relative to, using root.
 
 ```ruby
-AutoLoader.root = 'fixtures'
+SweetLoader.root = 'fixtures'
 ```
 
 Now the constant `::CanTango` will be resolved as `'fixtures/can_tango'`
@@ -48,20 +50,18 @@ Now the constant `::CanTango` will be resolved as `'fixtures/can_tango'`
 Normally the constant CanTango will be translated to the dir `'can_tango'`, here we override this so it will instead be translated to `'cantango'`.
 
 ```ruby
-AutoLoader.namespaces= {:CanTango => 'cantango', :Permithelper => 'permit_helper'}
+SweetLoader.namespaces= {:CanTango => 'cantango', :Permithelper => 'permit_helper'}
 ```
 
 ### Modes
 
-AutoLoader supports the following modes: `:autoload, :require`
+SweetLoader supports the following modes: `:autoload, :require`
 
-The mode `:require` is used to execute require statements directly. The `:autoload` mode is used to do autoloading.
-Note that autoloading is not stable in multi-threaded environments and will likely be deprecated in later version of Ruby.
-However autoloading does perform lazy loading and can be advantageous when you want to speed up initial load time and don't run in a multi-threaded environment.
+The mode `:require` is used to execute require statements directly. The `:autoload` mode is used to do autoloading. Note that autoloading is not stable in multi-threaded environments and will likely be deprecated in later version of Ruby. However autoloading does perform lazy loading and can be advantageous when you want to speed up initial load time and don't run in a multi-threaded environment.
 
 ## autoload_modules Configuration
 
-You can also specify the AutoLoader options directly as an option hash on the `#autoload_modules` call:
+You can also specify the SweetLoader options directly as an option hash on the `#autoload_modules` call:
 
 ```ruby
   autoload_modules :Configuration, :mode => :require
@@ -86,14 +86,39 @@ module AutoloadModules
   module Configuration
 	# the scope options only have effect for autoload_modules statements within it!
     autoload_scope 
-        :ns => { :AutoloadModules => 'fixtures/autoload_modulez'},
-		:mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') } do
+				:ns => { :AutoloadModules => 'fixtures/autoload_modulez'},
+				:mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') } do
       autoload_modules :Admin
     end
     
     autoload_modules :Editor
   end
 end
+```
+
+## ClassExt
+
+Sweetloader also encludes a convenient extension called `ClassExt`, which can be used to find a Module or Class based on a name.
+
+```ruby
+module First
+	module Blip
+		def self.blip
+		end
+	end
+end
+
+module Second
+	include_and_extend ClassExt
+  include_and_extend First
+end
+
+Second.new.try_module('Blip').blip
+Second.try_module('Blip').blip
+Second.try_class('Blip') == nil # => ClassNotFoundError
+
+Second.find_first_class(:Blop, :blip_blop, 'Blip') # => ClassNotFoundError
+Second.find_first_module('Blop', :blip) # => Blip:Class
 ```
 
 ## Contributing to sweetloader
