@@ -22,5 +22,11 @@ describe 'Sweetloader options' do
         lambda { AutoloadModules::Configuration::Editor }.should_not raise_error
       end
     end
+
+    describe "#autoload_scope with :proc option" do
+      specify do
+        lambda { AutoloadModules::Procedure }.should_not raise_error
+      end
+    end
   end
 end

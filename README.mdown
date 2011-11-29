@@ -1,6 +1,6 @@
 # Sweetloader
 
-A 'sweet' autoloader that can autoload your modules and classes more easily, by taking advantage of a standard directory structure approach for the placement of your classes and modules. You can also configure Sweetloader to override the defaults in various ways... 
+A 'sweet' autoloader designed to autoload your modules and classes more easily, by taking advantage of a standard directory structure approach for the placement of your classes and modules. You can also configure Sweetloader to override the defaults in various ways... and even have it use `require` instead of `autoload` :)
 
 ## Install
 
@@ -26,38 +26,59 @@ end
 
 Each of these modules are then expected to be in @catango/configuration.rb@ and similar relative to a load path.
 
-## Configuration
+## AutoLoader Configuration
 
 The following global config vars are available in AutoLoader:
 * root
 * namespaces
+* mode
+
+### Root
 
 Set a specific root which the dir will be calculated relative to, using root.
-Override namespace to directory auto-mapping using the namespaces hash.
 
 ```ruby
-AutoLoader.root = ''
+AutoLoader.root = 'fixtures'
+```
+
+Now the constant `::CanTango` will be resolved as `'fixtures/can_tango'`
+
+### Namespaces
+
+Normally the constant CanTango will be translated to the dir `'can_tango'`, here we override this so it will instead be translated to `'cantango'`.
+
+```ruby
 AutoLoader.namespaces= {:CanTango => 'cantango', :Permithelper => 'permit_helper'}
 ```
 
-Normally the namespace/constant CanTango will be translated to the dir 'can_tango', here we override this so it will instead be translated to 'cantango'.
+### Modes
 
-You can also specify these options directly as an option hash on the `#autoload_modules` call 
+AutoLoader supports the following modes: `:autoload, :require`
+
+The mode `:require` is used to execute require statements directly. The `:autoload` mode is used to do autoloading.
+Note that autoloading is not stable in multi-threaded environments and will likely be deprecated in later version of Ruby.
+However autoloading does perform lazy loading and can be advantageous when you want to speed up initial load time and don't run in a multi-threaded environment.
+
+## autoload_modules Configuration
+
+You can also specify the AutoLoader options directly as an option hash on the `#autoload_modules` call:
 
 ```ruby
   autoload_modules :Configuration, :Factory, :Permit, :root => 'helpers'
-  autoload_modules :Configuration, :Factory, :Permit, :ns => {:CanTango => 'cantango'}
+  autoload_modules :Configuration, :Factory, :Permit, :ns => {:CanTango => 'cantango'} # or use :namespaces
 ```
 
 ## Mutate path option
 
-Can be used to execute more general substitution logic on the generated file path
+This option is only available for `autoload_modules`.  It can be used to execute more general substitution logic on the generated file path:
 
 ```ruby
   autoload_modules :Configuration, :Factory, :Permit, :mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') }
 ```
 
 ## Scopes
+
+A Scope allows options to be specified that are effective on all `autoload_modules` statements within the scope.
 
 ```ruby
 module AutoloadModules

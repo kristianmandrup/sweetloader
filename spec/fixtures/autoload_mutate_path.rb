@@ -7,6 +7,10 @@ module AutoloadModules
     autoload_modules :Abc
     autoload_modules :Xyz
   end
+  
+  autoload_scope :proc => Proc.new {|the_module, module_name, require_file| require require_file } do 
+    autoload_modules :Procedure
+  end
 end
 
 module AutoloadModules
