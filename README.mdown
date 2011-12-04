@@ -64,17 +64,19 @@ The mode `:require` is used to execute require statements directly. The `:autolo
 You can also specify the SweetLoader options directly as an option hash on the `#autoload_modules` call:
 
 ```ruby
-  autoload_modules :Configuration, :mode => :require
-  autoload_modules :Configuration, :Factory, :root => 'helpers'
-  autoload_modules :Configuration, :Factory, :Permit, :ns => {:CanTango => 'cantango'} # or use :namespaces
+  sweetload :Configuration, :mode => :require
+  sweetload :Configuration, :Factory, :root => 'helpers'
+  sweetload :Configuration, :Factory, :Permit, :ns => {:CanTango => 'cantango'} # or use :namespaces
 ```
+
+Note: `#autoload_modules` is deprecated in place of `#sweetload`
 
 ## Mutate path option
 
 This option is only available for `autoload_modules`.  It can be used to execute more general substitution logic on the generated file path:
 
 ```ruby
-  autoload_modules :Configuration, :Factory, :Permit, :mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') }
+  sweetload :Configuration, :Factory, :Permit, :mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') }
 ```
 
 ## Scopes
@@ -85,16 +87,18 @@ A Scope allows options to be specified that are effective on all `autoload_modul
 module AutoloadModules
   module Configuration
 	# the scope options only have effect for autoload_modules statements within it!
-    autoload_scope 
+    sweet_scope
 				:ns => { :AutoloadModules => 'fixtures/autoload_modulez'},
 				:mutate_path => Proc.new {|path| path.sub(/(ies)/, 'y') } do
-      autoload_modules :Admin
+      sweetload :Admin
     end
     
-    autoload_modules :Editor
+    sweetload :Editor
   end
 end
 ```
+
+Note: `#autoload_scope` is deprecated in place of `#sweet_scope`
 
 ## ClassExt
 

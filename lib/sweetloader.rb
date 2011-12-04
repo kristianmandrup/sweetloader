@@ -46,6 +46,7 @@ module SweetLoader
     end
   end
   alias_method :autoload_module, :autoload_modules
+  alias_method :sweetload, :autoload_modules
 
   def mode_logic mode
     case mode
@@ -61,9 +62,11 @@ module SweetLoader
   def autoload_scope options = {}, &block
     if block_given?
       block.arity == 1 ? yield(self) : SweetLoader::Scope.new(self, options).instance_eval(&block)
-    end    
-  end  
-end  
+    end
+  end
+  alias_method :sweetload_scope, :autoload_scope
+  alias_method :sweet_scope, :autoload_scope
+end
 
 class Module
   include SweetLoader
